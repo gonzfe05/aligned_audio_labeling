@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "audiotools"
+version = "0.1.0"
+description = "Tools for dealing with audio"
+authors = ["Fernando Gonzalez <fernandogonzalez512@hotmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+pydub = "*"
+numpy = "*"
+praatio = "*"
+pydantic = "*"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
