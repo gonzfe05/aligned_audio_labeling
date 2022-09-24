@@ -1,1 +1,3 @@
-watchdog
+label-studio
+typer[all]
+pre-commit

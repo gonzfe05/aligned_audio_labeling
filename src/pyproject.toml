@@ -8,9 +8,10 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "^3.10"
 pydub = "*"
-numpy = "*"
+numpy = "1.22"
 praatio = "*"
 pydantic = "*"
+python-dotenv = "*"
 
 [build-system]
 requires = ["poetry-core"]

@@ -1,0 +1,7 @@
+name: aligner
+channels:
+  - conda-forge
+dependencies:
+  - montreal-forced-aligner
+  - typer[all]
+  - redis
