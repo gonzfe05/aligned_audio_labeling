@@ -22,8 +22,11 @@ def parse_aligned_audio(corpus_directory: str):
 
 def align_audio(corpus_directory: str):
     parsed, transcriptions, files = parse_aligned_audio(corpus_directory)
-    audios = parsed
-    return {
-        file: (audio, trans)
-        for file, audio, trans in zip(files, audios, transcriptions)
-    }
+    result = {}
+    for file, audio, trans in zip(files, parsed, transcriptions):
+        result[file] = result.get(file, []) + [(audio, trans)]
+    return result
+    # return {
+    #     file: (audio, trans)
+    #     for file, audio, trans in zip(files, audios, transcriptions)
+    # }

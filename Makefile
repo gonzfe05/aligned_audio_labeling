@@ -4,7 +4,11 @@ make_tasks:
 	python processes/cleaning.py clean-transcripts
 	python processes/audio_handler.py
 	python processes/cleaning.py prepare-for-ls
-	bash ./processes/serve_local_files.sh ~/.cache/segments
 
 start_ls:
-	label-studio start -d --log-level=DEBUG
+	POSTGRES_DATA_DIR=~/postgres-data docker-compose up -d
+
+clean:
+	rm -f ~/.cache/mfa/*
+	rm -f data/done/*
+	rm -f data/fail/*

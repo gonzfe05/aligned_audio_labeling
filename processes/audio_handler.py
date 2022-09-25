@@ -38,16 +38,18 @@ def main():
         aligned_audios = align_audio(LOCAL_DATA_DIR)
         logging.info("exporting segments to %s", LOCAL_SEGMENTS_DIR)
         logging.info("moving done files to %s", LOCAL_DONE_DIR)
-        for f, (audio, label) in aligned_audios.items():
-            export_audio(audio, os.path.join(LOCAL_SEGMENTS_DIR, f"{label}_{f}"))
-            shutil.move(
-                os.path.join(LOCAL_DATA_DIR, f"{f}.wav"),
-                os.path.join(LOCAL_DONE_DIR, f"{f}.wav"),
-            )
-            shutil.move(
-                os.path.join(LOCAL_DATA_DIR, f"{f}.txt"),
-                os.path.join(LOCAL_DONE_DIR, f"{f}.txt"),
-            )
+        for f, data in aligned_audios.items():
+            for audio, label in data:
+                export_audio(audio, os.path.join(LOCAL_SEGMENTS_DIR, f"{label}_{f}"))
+                if os.path.exists(os.path.join(LOCAL_DATA_DIR, f"{f}.wav")):
+                    shutil.move(
+                        os.path.join(LOCAL_DATA_DIR, f"{f}.wav"),
+                        os.path.join(LOCAL_DONE_DIR, f"{f}.wav"),
+                    )
+                    shutil.move(
+                        os.path.join(LOCAL_DATA_DIR, f"{f}.txt"),
+                        os.path.join(LOCAL_DONE_DIR, f"{f}.txt"),
+                    )
     files = glob(os.path.join(LOCAL_DATA_DIR, "*.wav"))
     if len(files) > 0:
         logging.info("%i(%f) files failed", len(files), len(files) / N)
@@ -57,10 +59,13 @@ def main():
                 os.path.join(LOCAL_DATA_DIR, f),
                 os.path.join(LOCAL_FAIL_DIR, f"{Path(f).stem}.wav"),
             )
-            shutil.move(
-                os.path.join(LOCAL_DATA_DIR, f"{Path(f).stem}.txt"),
-                os.path.join(LOCAL_FAIL_DIR, f"{Path(f).stem}.txt"),
-            )
+            try:
+                shutil.move(
+                    os.path.join(LOCAL_DATA_DIR, f"{Path(f).stem}.txt"),
+                    os.path.join(LOCAL_FAIL_DIR, f"{Path(f).stem}.txt"),
+                )
+            except:
+                logging.info(f"{f} doesnt have an transcription")
     logging.info("Finished: %i seconds", int(time.time() - start))
 
 

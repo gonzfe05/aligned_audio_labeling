@@ -15,8 +15,8 @@ def export_audio(segment: AudioSegment, path: str):
 
 
 def force_align(corpus_directory: str, output_directory: str):
-    dictionary = "english_us_arpa"
-    acoustic_model = "english_us_arpa"
+    dictionary = "english_mfa"
+    acoustic_model = "english_mfa"
     return subprocess.run(
         [
             "mfa",
@@ -63,10 +63,11 @@ def parse_textgrids(corpus_directory: str, output_directory: str):
     transcriptions = []
     files = []
     for grid in grids:
-        audios, trans = parse_textgrid(grid, corpus_directory)
-        audios.extend(audios)
+        curr_audios, trans = parse_textgrid(grid, corpus_directory)
+        curr_files = [Path(grid).stem] * len(curr_audios)
+        audios.extend(curr_audios)
         transcriptions.extend(trans)
-        files.append(Path(grid).stem)
+        files.extend(curr_files)
     return audios, transcriptions, files
 
 
