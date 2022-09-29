@@ -5,3 +5,4 @@ dependencies:
   - montreal-forced-aligner
   - typer[all]
   - redis
+  - uwsgi

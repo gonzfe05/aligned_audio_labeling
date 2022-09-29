@@ -1,3 +1,4 @@
 label-studio
 typer[all]
 pre-commit
+git+https://github.com/heartexlabs/label-studio-ml-backend@master#egg=label-studio-ml

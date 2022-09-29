@@ -10,7 +10,8 @@
             "request": "launch",
             "program": "${file}",
             "console": "integratedTerminal",
-            "justMyCode": true
+            "justMyCode": false,
+            "cwd": "/workspaces/aligned_audio_labeling/nemo"
         }
     ]
 }
